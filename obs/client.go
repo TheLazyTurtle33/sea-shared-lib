@@ -1,7 +1,6 @@
 package obs
 
 import (
-	"errors"
 	"fmt"
 	"net/url"
 	"sync"
@@ -72,14 +71,15 @@ var instance *Client
 
 func Get() (*Client, error) {
 	if instance == nil {
-		return nil, errors.New("obs client not initialized: call Init() first")
+		err := new()
+		return instance, err
 	}
 	return instance, nil
 }
 
 // -- init --
 
-func Init() error {
+func new() error {
 	u := url.URL{
 		Scheme: "ws",
 		Host:   fmt.Sprintf("%s:%s", secret.Url, secret.Port),
@@ -87,6 +87,7 @@ func Init() error {
 
 	ws, err := websocket.Dial(u.String(), "", "http://localhost/")
 	if err != nil {
+		instance = nil
 		return fmt.Errorf("obs: failed to connect: %w", err)
 	}
 
@@ -98,6 +99,7 @@ func Init() error {
 	// read the Hello (op 0) and respond with Identify (op 1)
 	if err := c.handshake(); err != nil {
 		ws.Close()
+		instance = nil
 		return fmt.Errorf("obs: handshake failed: %w", err)
 	}
 

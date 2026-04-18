@@ -204,13 +204,18 @@ func (c *Client) Send(requestType string, data any) (map[string]any, error) {
 	c.pending[id] = ch
 	c.mu.Unlock()
 
+	d := map[string]any{
+		"requestType": requestType,
+		"requestId":   id,
+	}
+
+	if data != nil {
+		d["requestData"] = data
+	}
+
 	msg := map[string]any{
 		"op": 6, // Request opcode
-		"d": map[string]any{
-			"requestType": requestType,
-			"requestId":   id,
-			"requestData": data,
-		},
+		"d":  d,
 	}
 
 	c.mu.Lock()

@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/TheLazyTurtle33/sea-core/shared/cleanup"
+	"codeberg.org/LazyTurtle33/sea-shared-lib/cleanup"
 )
 
 const logDir = "/app/data/logs"

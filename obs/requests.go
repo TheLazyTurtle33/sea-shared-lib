@@ -11,6 +11,10 @@ func newRequestID() string {
 	return fmt.Sprintf("req-%d", reqCounter.Add(1))
 }
 
+func (c *Client) Ping() (map[string]any, error) {
+	return c.Send("Ping", nil)
+}
+
 func (c *Client) SetScene(scene string) (map[string]any, error) {
 	return c.Send("SetCurrentProgramScene", map[string]any{
 		"sceneName": scene,

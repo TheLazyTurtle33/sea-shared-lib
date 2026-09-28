@@ -74,6 +74,13 @@ func Get() (*Client, error) {
 		err := new()
 		return instance, err
 	}
+
+	_, err := instance.Ping()
+	if err != nil {
+		err = new()
+		return instance, err
+	}
+
 	return instance, nil
 }
 

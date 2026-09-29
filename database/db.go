@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"codeberg.org/LazyTurtle33/sea-shared-lib/cleanup"
-	"codeberg.org/LazyTurtle33/sea-shared-lib/logger"
+	"github.com/TheLazyTurtle33/sea-shared-lib/cleanup"
+	"github.com/TheLazyTurtle33/sea-shared-lib/logger"
 	_ "github.com/lib/pq"
 )
 
